@@ -35,7 +35,7 @@ public class Main {
         answer++;
         map[r][c]=2; //2는 청소완료 의미
       }
-      int flag = 0;
+      int flag = 0;//4방향 중 청소안한 곳 찾기
       for(int i=0;i<4;i++){
         //반시계로 90도씩 4번 돌림
         int nd = (d+3-i)%4;
@@ -54,7 +54,7 @@ public class Main {
       if(flag==0){
         int bx=r+dx[(d+2)%4];
         int by=c+dy[(d+2)%4];
-        int bd=(d+2)%4;
+        //int bd=(d+2)%4; <-- 불필요한 부분 삭제
         if(bx>=0 && bx<N && by>=0 && by<M && map[bx][by]!=1){
           Integer[] next={bx,by,d};
           dq.offer(next);
