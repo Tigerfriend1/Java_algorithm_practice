@@ -27,18 +27,26 @@ public class Main {
                 }
             }
         }
-        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
-            @Override
-            public int compare(int[] o1, int[] o2){
-                if(o1[2]==o2[2]){//dist같으면
-                    if(o1[0]==o2[0]){ //위 아래도 같으면
-                        return o1[1]-o2[1]; //왼쪽기준 정렬
-                    }
-                    return o1[0]-o2[0];//북쪽 기준정렬
+        // PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+        //     @Override
+        //     public int compare(int[] o1, int[] o2){
+        //         if(o1[2]==o2[2]){//dist같으면
+        //             if(o1[0]==o2[0]){ //위 아래도 같으면
+        //                 return o1[1]-o2[1]; //왼쪽기준 정렬
+        //             }
+        //             return o1[0]-o2[0];//북쪽 기준정렬
+        //         }
+        //         return o1[2]-o2[2];
+        //     }
+        // });
+        PriorityQueue<int[]> pq = new PriorityQueue<>((i1,i2)->{
+            if(i1[2]==i2[2]){
+                if(i1[0]==i2[0]){
+                    return i1[1]-i2[1];
                 }
-                return o1[2]-o2[2];
+                return i1[0]-i2[0];
             }
-
+            return i1[2]-i2[2];
         });
         
         pq.offer(new int[]{x,y,0});
