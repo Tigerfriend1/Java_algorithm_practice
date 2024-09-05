@@ -1,0 +1,55 @@
+import java.util.*;
+//1. 장르별 총합을 기준으로 내림차순
+//2. 장르내에서 재생수 기준 내림차순
+//2-1. 장르내에서 가장 재생수 많은 것 2개 채택
+class Solution {
+    public int[] solution(String[] genres, int[] plays) {
+        
+        
+        HashMap<String,ArrayList<int[]>> map = new HashMap<>();
+        for(int i=0; i<genres.length;i++){
+            if(!map.containsKey(genres[i])){
+                map.put(genres[i],new ArrayList<>());
+            }
+            map.get(genres[i]).add(new int[]{plays[i],i});
+        }
+        //장르별 총플레이수를 기준으로 정렬
+        List<Map.Entry<String, ArrayList<int[]>>> list = new ArrayList<>();
+        for(Map.Entry<String, ArrayList<int[]>> m : map.entrySet()){
+            list.add(m);
+        }
+        Collections.sort(list, (o1,o2)->{
+            int sum1=0;
+            int sum2=0;
+            for(int[] a : o1.getValue()){
+                sum1+=a[0];
+            }
+            for(int[] a : o2.getValue()){
+                sum2+=a[0];
+            }
+            return sum2-sum1;
+            
+        });
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(Map.Entry<String,ArrayList<int[]>> m : list){
+            ArrayList<int[]> gen = m.getValue(); //[500,0],[150,2]
+            Collections.sort(gen, (o1,o2)->{ //장르내 재생수별로 내림차순
+                return o2[0]-o1[0];
+            });
+            if(gen.size()==1){ //하나밖에 없는 경우 처리
+                ans.add(gen.get(0)[1]);
+            }else{
+                ans.add(gen.get(0)[1]);
+                ans.add(gen.get(1)[1]);
+            }
+        }
+        
+        //System.out.println(ans);
+        int[] answer = new int[ans.size()];
+        for(int i=0;i<ans.size();i++){
+            answer[i]=ans.get(i);
+        }
+        //ans.toArray(new int[0]);
+        return answer;
+    }
+}
